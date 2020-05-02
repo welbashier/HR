@@ -1,21 +1,17 @@
 package com.gwais.hr.dao;
 
-import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import com.gwais.hr.model.Employee;
 
-@RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 final public class IEmployeeDaoTest {
@@ -24,7 +20,7 @@ final public class IEmployeeDaoTest {
 	IEmployeeDao employeeDao;
 
 	@Test
-	void test() {
+	void testAutowiredDao() {
 		// fail("Not yet implemented");
 		assertNotNull(employeeDao);
 	}
