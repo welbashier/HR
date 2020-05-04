@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gwais.hr.service.EmployeeService;
+import com.gwais.hr.service.IEmployeeService;
 
 @RestController
 @RequestMapping("/Employee")
 public class EmployeeController {
 
 	@Autowired
-	EmployeeService employeeService;
+	IEmployeeService employeeService;
 
 	@GetMapping("/Status")
 	public String status() {

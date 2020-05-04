@@ -12,15 +12,17 @@ import com.gwais.hr.dao.IEmployeeDao;
 import com.gwais.hr.model.Employee;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements IEmployeeService {
 
 	@Autowired
 	IEmployeeDao employeeDao;
 
+	@Override
 	public List<EmployeeDto> getAllEmployees() {
 		return convert(employeeDao.findAll());
 	}
 
+	@Override
 	public EmployeeDto getOneEmployee(Long id) {
 		Employee oneEmployee = employeeDao.getOne(id);
 		return convert(oneEmployee);
@@ -32,6 +34,7 @@ public class EmployeeService {
 		return convert(savedEmployee);
 	}
 
+	@Override
 	public EmployeeDto addEmployee(EmployeeDto changedEmployeeDto) {
 		if (changedEmployeeDto != null && changedEmployeeDto.getEmpno() != null) {
 			changedEmployeeDto.setEmpno(null);
@@ -39,6 +42,7 @@ public class EmployeeService {
 		return saveEmployee(changedEmployeeDto);
 	}
 
+	@Override
 	public String removeEmployee(Long id) {
 		String resultMessage = "";
 		try {
@@ -50,6 +54,7 @@ public class EmployeeService {
 		return resultMessage;
 	}
 
+	@Override
 	public EmployeeDto modifyEmployee(EmployeeDto changedEmployeeDto, Long id) {
 		Long changedEmployeeID = changedEmployeeDto.getEmpno();
 		if (id == null || (changedEmployeeID != null && changedEmployeeID != id) || getOneEmployee(id) == null) {
