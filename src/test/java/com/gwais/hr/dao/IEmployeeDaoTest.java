@@ -2,6 +2,7 @@ package com.gwais.hr.dao;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,9 +60,9 @@ final public class IEmployeeDaoTest {
 
 		Long actualEmpNo = savedEmployee.getEmpno();
 		assertTrue(actualEmpNo > 0);
-		
+
 		employeeDao.delete(savedEmployee);
-		
+
 		Optional<Employee> oneEmployee = employeeDao.findById(actualEmpNo);
 		assertTrue(!oneEmployee.isPresent());
 	}
@@ -80,18 +81,64 @@ final public class IEmployeeDaoTest {
 
 		String actualEmpName = oneEmployee.getEname();
 		assertEquals(expectedEmpName, actualEmpName, failingMessage);
-		
+
 		// now change and save
 		oneEmployee.setEname(givenEmpName);
 		employeeDao.save(oneEmployee);
-		
-		// read it and test it 
+
+		// read it and test it
 		Optional<Employee> updatedEmployee = employeeDao.findById(givenEmpNo);
 		assertTrue(updatedEmployee.isPresent());
 		String expectedEmpNameAfterUpdate = givenEmpName;
 		String actualEmpNameUpdated = updatedEmployee.get().getEname();
-		assertEquals(expectedEmpNameAfterUpdate , actualEmpNameUpdated, failingMessage);
+		assertEquals(expectedEmpNameAfterUpdate, actualEmpNameUpdated, failingMessage);
 		System.out.println("done");
 	}
 
+	@Test
+	void testSearchByEname() {
+		String empNameKeyword = "kin%";
+		int expectedCount = 1;
+
+		List<Employee> allMatchingEmployees = employeeDao.findByEnameLikeIgnoreCase(empNameKeyword);
+		assertNotNull(allMatchingEmployees);
+		assertTrue(allMatchingEmployees.size() > 0);
+		assertEquals(expectedCount, allMatchingEmployees.size());
+
+	}
+
+	@Test
+	void testSearchByDeptno() {
+		Long deptNo = 30l; // 30 = sales department
+		int expectedCount = 8;
+
+		List<Employee> allMatchingEmployees = employeeDao.findByDeptno(deptNo);
+		assertNotNull(allMatchingEmployees);
+		assertTrue(allMatchingEmployees.size() > 0);
+		assertEquals(expectedCount, allMatchingEmployees.size());
+	}
+
+	@Test
+	void testSearchByHiredate() {
+		String dateString = "2012-02-06";
+		Date sqlDate = Date.valueOf(dateString);
+		int expectedCount = 5;
+
+		List<Employee> allMatchingEmployees = employeeDao.findByHiredateGreaterThanEqual(sqlDate);
+		assertNotNull(allMatchingEmployees);
+		assertTrue(allMatchingEmployees.size() > 0);
+		assertEquals(expectedCount, allMatchingEmployees.size());
+	}
+
+	@Test
+	void testSearchByJobAndDeptno() {
+		String job = "sales";
+		Long deptno = 30l;
+		int expectedCount = 2;
+
+		List<Employee> allMatchingEmployees = employeeDao.findByJobLikeIgnoreCaseAndDeptno(job, deptno);
+		assertNotNull(allMatchingEmployees);
+		assertTrue(allMatchingEmployees.size() > 0);
+		assertEquals(expectedCount, allMatchingEmployees.size());
+	}
 }
