@@ -32,8 +32,15 @@ class EmployeeHrApplicationTests {
 	}
 
 	@Test
-	public void getAll() throws Exception {
+	public void getAllEmployees() throws Exception {
 		mvc.perform(MockMvcRequestBuilders.get("/Employee"))
+				.andExpect(status().isOk())
+				;
+	}
+
+	@Test
+	public void getAllDepartments() throws Exception {
+		mvc.perform(MockMvcRequestBuilders.get("/Department"))
 				.andExpect(status().isOk())
 				;
 	}
