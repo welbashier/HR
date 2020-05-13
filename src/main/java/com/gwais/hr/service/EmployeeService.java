@@ -23,6 +23,11 @@ public class EmployeeService implements IEmployeeService {
 	}
 
 	@Override
+	public List<EmployeeDto> getEmployeesOfDepartment(Long deptno) {
+		return convert(employeeDao.findByDeptno(deptno));
+	} 
+
+	@Override
 	public EmployeeDto getOneEmployee(Long id) {
 		Employee oneEmployee = employeeDao.getOne(id);
 		return convert(oneEmployee);

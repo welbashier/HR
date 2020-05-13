@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gwais.hr.controller.DepartmentDto;
+import com.gwais.hr.controller.EmployeeDto;
 import com.gwais.hr.dao.IDepartmentDao;
 import com.gwais.hr.model.Department;
 
@@ -15,6 +16,10 @@ public class DepartmentService implements IDepartmentService {
 
 	@Autowired
 	IDepartmentDao departmentDao;
+
+	@Autowired
+	IEmployeeService employeeService;
+	
 	
 	@Override
 	public List<DepartmentDto> getAllDepartments() {
@@ -24,8 +29,8 @@ public class DepartmentService implements IDepartmentService {
 
 	@Override
 	public DepartmentDto getOneDepartment(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Department readDept = departmentDao.getOne(id);
+		return convert(readDept);
 	}
 
 	@Override
@@ -45,6 +50,14 @@ public class DepartmentService implements IDepartmentService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public DepartmentDto getAllDepartmentWithEmployees(Long id) {
+		DepartmentDto readDept = getOneDepartment(id);
+		List<EmployeeDto> employeesList = employeeService.getEmployeesOfDepartment(id);
+		readDept.setEmployeesList(employeesList);
+		return readDept;
+	}
 	
 	//========================================================
 
@@ -52,13 +65,17 @@ public class DepartmentService implements IDepartmentService {
 	private List<DepartmentDto> convert(List<Department> allDepts) {
 		List<DepartmentDto> deptList = new ArrayList<>();
 		for (Department dept: allDepts) {
-			DepartmentDto deptDto = new DepartmentDto();
-			deptDto.setDeptno(dept.getDeptno());
-			deptDto.setDname(dept.getDname());
-			deptDto.setLoc(dept.getLoc());
+			DepartmentDto deptDto = convert(dept);
 			deptList.add(deptDto);
 		}
 		return deptList;
 	}
 
+	private DepartmentDto convert(Department dept) {
+		DepartmentDto deptDto = new DepartmentDto();
+		deptDto.setDeptno(dept.getDeptno());
+		deptDto.setDname(dept.getDname());
+		deptDto.setLoc(dept.getLoc());
+		return deptDto;
+	}
 }

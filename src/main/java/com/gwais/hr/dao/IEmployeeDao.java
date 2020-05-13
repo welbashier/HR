@@ -11,8 +11,8 @@ import com.gwais.hr.model.Employee;
 @Repository
 public interface IEmployeeDao extends JpaRepository<Employee, Long> {
 	/*
-	 * these methods are needed to be declared in order to be used. implementation
-	 * is provided by framework.
+	 * these methods are needed to be declared in order to be used. 
+	 * implementation is provided by framework.
 	 */
 	
 	public Employee findById(long id);

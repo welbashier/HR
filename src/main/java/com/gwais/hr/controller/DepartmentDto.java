@@ -1,5 +1,6 @@
 package com.gwais.hr.controller;
 
+import java.util.List;
 
 public class DepartmentDto {
 
@@ -8,6 +9,8 @@ public class DepartmentDto {
 	private String dname;
 	
 	private String loc;
+	
+	private List<EmployeeDto> employeesList;
 
 	public Long getDeptno() {
 		return deptno;
@@ -31,6 +34,14 @@ public class DepartmentDto {
 
 	public void setLoc(String loc) {
 		this.loc = loc;
+	}
+
+	public List<EmployeeDto> getEmployeesList() {
+		return employeesList;
+	}
+
+	public void setEmployeesList(List<EmployeeDto> employeesList) {
+		this.employeesList = employeesList;
 	}
 	
 	

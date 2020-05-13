@@ -15,4 +15,6 @@ public interface IDepartmentService {
 	String removeDepartment(Long id);
 
 	DepartmentDto modifyDepartment(DepartmentDto changedDepartmentDto, Long id);
+
+	DepartmentDto getAllDepartmentWithEmployees(Long id);
 }

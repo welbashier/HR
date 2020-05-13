@@ -8,6 +8,8 @@ public interface IEmployeeService {
 
 	List<EmployeeDto> getAllEmployees();
 
+	List<EmployeeDto> getEmployeesOfDepartment(Long deptno);
+	
 	EmployeeDto getOneEmployee(Long id);
 
 	EmployeeDto addEmployee(EmployeeDto changedEmployeeDto);
