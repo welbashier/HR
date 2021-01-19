@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gwais.hr.service.IEmployeeService;
 
@@ -60,6 +61,24 @@ public class EmployeeController {
 	@DeleteMapping("/{id}")
 	public String employeeAPINo4(@PathVariable Long id) {
 		return employeeService.removeEmployee(id);
+	}
+	
+	/*
+	 * Returning static HTML pages/views
+	 */
+	
+	@GetMapping(value = { "/home"})
+	public ModelAndView welcomePage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeHome");
+		return model;
+	}
+	
+	@GetMapping(value = { "/admin"})
+	public ModelAndView adminPage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeAdmin");
+		return model;
 	}
 
 }
