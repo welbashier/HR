@@ -1,11 +1,13 @@
 package com.gwais.hr.service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import com.gwais.hr.controller.EmployeeDto;
 import com.gwais.hr.dao.IEmployeeDao;
@@ -83,17 +85,21 @@ public class EmployeeService implements IEmployeeService {
 
 	private EmployeeDto convert(Employee oneEmployee) {
 		EmployeeDto empDto = new EmployeeDto();
-		empDto.setEmpno(oneEmployee.getEmpno());
-		empDto.setEname(oneEmployee.getEname());
-		empDto.setJob(oneEmployee.getJob());
-		empDto.setMgr(oneEmployee.getMgr());
-		empDto.setSal(oneEmployee.getSal());
-		empDto.setComm(oneEmployee.getComm());
-		empDto.setDeptno(oneEmployee.getDeptno());
-		empDto.setHiredate(oneEmployee.getHiredate());
+		try {
+			empDto.setEmpno(oneEmployee.getEmpno());
+			empDto.setEname(oneEmployee.getEname());
+			empDto.setJob(oneEmployee.getJob());
+			empDto.setMgr(oneEmployee.getMgr());
+			empDto.setSal(oneEmployee.getSal());
+			empDto.setComm(oneEmployee.getComm());
+			empDto.setDeptno(oneEmployee.getDeptno());
+			empDto.setHiredate(oneEmployee.getHiredate());
+		} catch(Exception e) {
+			;
+		}
 		return empDto;
 	}
-
+	
 	private Employee convert(EmployeeDto changedEmployeeDto) {
 		Employee emp = new Employee();
 		emp.setEmpno(changedEmployeeDto.getEmpno());
