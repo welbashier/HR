@@ -1,3 +1,15 @@
 <h1>Employees HR Home page</h1>
 <h2 style="color:green">Welcome to Index Page!</h2>
+
+<div sec:authorize="hasRole('ADMIN')">
+    This content is only shown to administrators.<br>
+    Go <a href="/Employee/admin">administer</a> your employees.
+</div>
+<br>
+<div sec:authorize="hasRole('USER')">
+    This content is only shown to users.<br>
+    Go to see your <a href="/Employee/home">home page</a>.
+</div>
+<br>
+<br>
 <img src="https://media2.giphy.com/media/3pZipqyo1sqHDfJGtz/giphy.gif"/>
