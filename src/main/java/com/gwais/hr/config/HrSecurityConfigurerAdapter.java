@@ -36,19 +36,17 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		templateEngine.addDialect(sec); // Enable use of "sec" return templateEngine;
 		return (templateEngine);
 	}
-	
+
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) 
-      throws Exception {
-        auth
-          .inMemoryAuthentication()
-          .withUser("zoalsai").password(passwordEncoder().encode("tamaam")).roles("USER")
-          .and()
-          .withUser("modeer").password(passwordEncoder().encode("admin")).roles("ADMIN");
-    }
-    
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication()
+				.withUser("zoalsai").password(passwordEncoder().encode("tamaam")).roles("USER")
+				.and()
+				.withUser("modeer").password(passwordEncoder().encode("admin")).roles("ADMIN");
+	}
+
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
