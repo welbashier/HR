@@ -2,7 +2,7 @@ package com.gwais.hr.service;
 
 import java.util.List;
 
-import com.gwais.hr.controller.EmployeeDto;
+import dto.EmployeeDto;
 
 public interface IEmployeeService {
 

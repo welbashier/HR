@@ -6,10 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gwais.hr.controller.DepartmentDto;
-import com.gwais.hr.controller.EmployeeDto;
 import com.gwais.hr.dao.IDepartmentDao;
 import com.gwais.hr.model.Department;
+
+import dto.DepartmentDto;
+import dto.EmployeeDto;
 
 @Service
 public class DepartmentService implements IDepartmentService {

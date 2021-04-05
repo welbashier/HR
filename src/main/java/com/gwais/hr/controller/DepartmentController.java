@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gwais.hr.service.IDepartmentService;
 
+import dto.DepartmentDto;
+
 @RestController
 @RequestMapping("/Department")
 public class DepartmentController {

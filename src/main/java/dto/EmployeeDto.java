@@ -1,4 +1,4 @@
-package com.gwais.hr.controller;
+package dto;
 
 import java.util.Date;
 

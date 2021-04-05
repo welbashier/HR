@@ -7,9 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gwais.hr.controller.EmployeeDto;
 import com.gwais.hr.dao.IEmployeeDao;
 import com.gwais.hr.model.Employee;
+
+import dto.EmployeeDto;
 
 @Service
 public class EmployeeService implements IEmployeeService {
