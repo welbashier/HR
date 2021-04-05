@@ -1,4 +1,4 @@
-package com.gwais.hr.service;
+package com.gwais.hr.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.gwais.hr.dao.IDepartmentDao;
 import com.gwais.hr.model.Department;
+import com.gwais.hr.service.IDepartmentService;
+import com.gwais.hr.service.IEmployeeService;
 
 import dto.DepartmentDto;
 import dto.EmployeeDto;
