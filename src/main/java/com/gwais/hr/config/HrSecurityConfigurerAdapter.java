@@ -10,9 +10,14 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import com.gwais.hr.dao.IUserDao;
+
 @Configuration
 @EnableWebSecurity
 public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	IUserDao userDao;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -33,7 +38,7 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver, SpringSecurityDialect sec) {
 		final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver);
-		templateEngine.addDialect(sec); // Enable use of "sec" return templateEngine;
+		templateEngine.addDialect(sec); // Enable use of "sec" return templateEngine
 		return (templateEngine);
 	}
 

@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "USR")
 public class User {
@@ -21,8 +23,13 @@ public class User {
 	@Column(name = "USERNAME")
 	private String username;
 
+	@JsonIgnore
 	@Column(name = "PASSWORD")
 	private String password;
+	
+	//List<UserRole> userRoles; // role (e.g. Manager) = group (e.g. Managers)
+	
+	//List<UserRights> userRights;
 
 	public Long getUserId() {
 		return userId;
