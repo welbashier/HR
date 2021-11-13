@@ -8,16 +8,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.gwais.hr.service.IDepartmentService;
-
-import dto.DepartmentDto;
+import com.gwais.hr.dto.DepartmentDto;
+import com.gwais.hr.service.DepartmentService;
 
 @RestController
 @RequestMapping("/Department")
 public class DepartmentController {
 	
 	@Autowired
-	IDepartmentService departmentService;
+	DepartmentService departmentService;
 	
 	@GetMapping("")
 	public List<DepartmentDto> anyName01() {

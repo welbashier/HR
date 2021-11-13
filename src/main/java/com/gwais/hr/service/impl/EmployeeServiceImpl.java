@@ -8,13 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gwais.hr.dao.IEmployeeDao;
+import com.gwais.hr.dto.EmployeeDto;
 import com.gwais.hr.model.Employee;
-import com.gwais.hr.service.IEmployeeService;
-
-import dto.EmployeeDto;
+import com.gwais.hr.service.EmployeeService;
 
 @Service
-public class EmployeeService implements IEmployeeService {
+public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
 	IEmployeeDao employeeDao;

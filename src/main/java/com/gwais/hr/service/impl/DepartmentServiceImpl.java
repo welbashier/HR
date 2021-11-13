@@ -7,21 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gwais.hr.dao.IDepartmentDao;
+import com.gwais.hr.dto.DepartmentDto;
+import com.gwais.hr.dto.EmployeeDto;
 import com.gwais.hr.model.Department;
-import com.gwais.hr.service.IDepartmentService;
-import com.gwais.hr.service.IEmployeeService;
-
-import dto.DepartmentDto;
-import dto.EmployeeDto;
+import com.gwais.hr.service.DepartmentService;
+import com.gwais.hr.service.EmployeeService;
 
 @Service
-public class DepartmentService implements IDepartmentService {
+public class DepartmentServiceImpl implements DepartmentService {
 
 	@Autowired
 	IDepartmentDao departmentDao;
 
 	@Autowired
-	IEmployeeService employeeService;
+	EmployeeService employeeService;
 	
 	
 	@Override

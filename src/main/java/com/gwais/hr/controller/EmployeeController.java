@@ -14,16 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gwais.hr.service.IEmployeeService;
-
-import dto.EmployeeDto;
+import com.gwais.hr.dto.EmployeeDto;
+import com.gwais.hr.service.EmployeeService;
 
 @RestController
 @RequestMapping("/Employee")
 public class EmployeeController {
 
 	@Autowired
-	IEmployeeService employeeService;
+	EmployeeService employeeService;
 
 	// accessed by: http://localhost:8011/Employee/Status
 	@GetMapping("/Status")

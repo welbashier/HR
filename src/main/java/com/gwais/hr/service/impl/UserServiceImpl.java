@@ -11,11 +11,11 @@ import com.gwais.hr.dto.ApiResponse;
 import com.gwais.hr.dto.LoginDto;
 import com.gwais.hr.dto.SignUpDto;
 import com.gwais.hr.model.User;
-import com.gwais.hr.service.IUserService;
+import com.gwais.hr.service.UserService;
 
 @Transactional
 @Service
-public class UserService implements IUserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private IUserDao userDao;

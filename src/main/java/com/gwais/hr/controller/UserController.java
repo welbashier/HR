@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gwais.hr.dto.ApiResponse;
 import com.gwais.hr.dto.LoginDto;
 import com.gwais.hr.dto.SignUpDto;
-import com.gwais.hr.service.IUserService;
+import com.gwais.hr.service.UserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
 	@Autowired
-    private IUserService userService;
+    private UserService userService;
 
     @PostMapping
     public ApiResponse signUp(@RequestBody SignUpDto signUpDto){

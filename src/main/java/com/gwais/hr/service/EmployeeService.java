@@ -2,9 +2,9 @@ package com.gwais.hr.service;
 
 import java.util.List;
 
-import dto.EmployeeDto;
+import com.gwais.hr.dto.EmployeeDto;
 
-public interface IEmployeeService {
+public interface EmployeeService {
 
 	List<EmployeeDto> getAllEmployees();
 

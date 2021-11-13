@@ -1,4 +1,4 @@
-package dto;
+package com.gwais.hr.dto;
 
 import java.util.List;
 

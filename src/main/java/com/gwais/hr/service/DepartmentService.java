@@ -2,9 +2,9 @@ package com.gwais.hr.service;
 
 import java.util.List;
 
-import dto.DepartmentDto;
+import com.gwais.hr.dto.DepartmentDto;
 
-public interface IDepartmentService {
+public interface DepartmentService {
 
 	List<DepartmentDto> getAllDepartments();
 
