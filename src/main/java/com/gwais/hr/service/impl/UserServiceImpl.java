@@ -6,11 +6,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gwais.hr.dao.IUserDao;
+import com.gwais.hr.dao.UserDao;
 import com.gwais.hr.dto.ApiResponse;
 import com.gwais.hr.dto.LoginDto;
 import com.gwais.hr.dto.SignUpDto;
-import com.gwais.hr.model.User;
+import com.gwais.hr.model.HrUser;
 import com.gwais.hr.service.UserService;
 
 @Transactional
@@ -18,13 +18,13 @@ import com.gwais.hr.service.UserService;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private IUserDao userDao;
+    private UserDao userDao;
 
 
     @Override
     public ApiResponse signUp(SignUpDto signUpDto) {
         validateSignUp(signUpDto);
-        User user = new User();
+        HrUser user = new HrUser();
         //can use Bcrypt
         BeanUtils.copyProperties(signUpDto, user);
         userDao.save(user);
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApiResponse login(LoginDto loginDto) {
-        User user = userDao.findByUsername(loginDto.getUsername());
+        HrUser user = userDao.findByUsername(loginDto.getUsername());
         if(user == null) {
             throw new RuntimeException("User does not exist.");
         }

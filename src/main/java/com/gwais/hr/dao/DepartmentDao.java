@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.gwais.hr.model.Department;
 
 @Repository
-public interface IDepartmentDao extends JpaRepository<Department, Long> {
+public interface DepartmentDao extends JpaRepository<Department, Long> {
 	/*
 	 * these methods are needed to be declared in order to be used. 
 	 * implementation is provided by framework.

@@ -18,7 +18,7 @@ import com.gwais.hr.model.Employee;
 final public class IEmployeeDaoTest {
 
 	@Autowired
-	IEmployeeDao employeeDao;
+	EmployeeDao employeeDao;
 
 	@Test
 	void testAutowiredDao() {

@@ -3,6 +3,7 @@ package com.gwais.hr.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class DepartmentController {
 	DepartmentService departmentService;
 	
 	@GetMapping("")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	public List<DepartmentDto> anyName01() {
 		List<DepartmentDto> Departments = departmentService.getAllDepartments();
 		return Departments;
@@ -26,6 +28,7 @@ public class DepartmentController {
 
 	
 	@GetMapping("/{id}")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	public DepartmentDto anyName02(@PathVariable Long id) {
 		DepartmentDto readDepartment = departmentService.getOneDepartment(id);
 		return readDepartment;
@@ -33,6 +36,7 @@ public class DepartmentController {
 
 	
 	@GetMapping("/{id}/Employees")
+	@Secured("ROLE_ADMIN")
 	public DepartmentDto anyName03(@PathVariable Long id) {
 		DepartmentDto readDepartment = departmentService.getAllDepartmentWithEmployees(id);
 		return readDepartment;

@@ -29,10 +29,15 @@ public class EmployeeController {
 	public String status() {
 		return "Up";
 	}
-
+	
+	
+	/*
+	 * Returning JSON objects
+	 */
+	
 	// getting all employees by: http://localhost:8011/Employee
 	@GetMapping("")
-	@Secured("ROLE_ADMIN") /* limited to users with ADMIN role. ROLE_ must be added */
+	@Secured("ROLE_ADMIN") /* limited to users with ADMIN role.  must be added */
 	public List<EmployeeDto> employeeAPINo10() {
 		List<EmployeeDto> employees = employeeService.getAllEmployees();
 		return employees;
@@ -40,7 +45,7 @@ public class EmployeeController {
 
 	// accessed by: http://localhost:8011/Employee/7566
 	@GetMapping("/{id}")
-	@Secured("ROLE_USER")
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	public EmployeeDto employeeAPINo1(@PathVariable Long id) {
 		EmployeeDto readEmployee = employeeService.getOneEmployee(id);
 		return readEmployee;
@@ -56,6 +61,7 @@ public class EmployeeController {
 
 	// accessed by API client (e.g. Postman) to put/update employees
 	@PutMapping("/{id}") // may not be needed
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	public EmployeeDto employeeAPINo3(
 			@RequestBody EmployeeDto changedEmployee,
 			@PathVariable(name = "id", required = true) Long id) {
@@ -69,11 +75,13 @@ public class EmployeeController {
 		return employeeService.removeEmployee(id);
 	}
 	
+	
 	/*
 	 * Returning static HTML pages/views
 	 */
 	
 	@GetMapping(value = { "/home"})
+	@Secured({"ROLE_ADMIN","ROLE_USER"})
 	public ModelAndView welcomePage() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("employeeHome");
@@ -81,6 +89,7 @@ public class EmployeeController {
 	}
 	
 	@GetMapping(value = { "/admin"})
+	@Secured("ROLE_ADMIN")
 	public ModelAndView adminPage() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("employeeAdmin");

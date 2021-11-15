@@ -3,11 +3,11 @@ package com.gwais.hr.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gwais.hr.model.User;
+import com.gwais.hr.model.HrUser;
 
 @Repository
-public interface IUserDao extends JpaRepository<User, Long> {
+public interface UserDao extends JpaRepository<HrUser, Long> {
 
 	// methods are implicit
-	User findByUsername(Object userName);
+	HrUser findByUsername(Object userName);
 }

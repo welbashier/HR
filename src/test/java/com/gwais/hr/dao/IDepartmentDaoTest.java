@@ -24,7 +24,7 @@ import com.gwais.hr.model.Department;
 class IDepartmentDaoTest {
 
 	@Autowired
-	IDepartmentDao departmentDao;
+	DepartmentDao departmentDao;
 	
 	@BeforeAll
 	static void startInitialSteps() {

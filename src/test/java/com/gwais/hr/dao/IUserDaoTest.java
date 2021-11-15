@@ -20,14 +20,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 //import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gwais.hr.model.User;
+import com.gwais.hr.model.HrUser;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class IUserDaoTest {
 	
 	@Autowired
-	IUserDao userDao;
+	UserDao userDao;
 	
 
 	@Test
@@ -38,7 +38,7 @@ class IUserDaoTest {
 	@Test
 	@Transactional
 	void testFindAll() {
-		List<User> allUsers = userDao.findAll();
+		List<HrUser> allUsers = userDao.findAll();
 		assertNotNull(allUsers);
 		assertTrue(allUsers.size() > 0);
 	}
@@ -47,7 +47,7 @@ class IUserDaoTest {
 	@Transactional
 	void testFindAllById() {
 		Long userID = 1l;
-		Optional<User> returnedUser = userDao.findById(userID);
+		Optional<HrUser> returnedUser = userDao.findById(userID);
 		// should be there
 		assertTrue(returnedUser.isPresent(), "User is not found");
 		assertTrue(returnedUser.get().getUsername().equalsIgnoreCase("zoalsai"));
@@ -57,7 +57,7 @@ class IUserDaoTest {
 	@Transactional
 	void testFindAllById_NoResult() {
 		Long userID = 33333l;
-		Optional<User> returnedUser = userDao.findById(userID);
+		Optional<HrUser> returnedUser = userDao.findById(userID);
 		// shouldn't be there
 		assertFalse(returnedUser.isPresent(), "User is not supposed to be found");
 	}
@@ -66,7 +66,7 @@ class IUserDaoTest {
 	@Transactional
 	void testGetOne() {
 		Long userID = 1l;
-		User oneUser = userDao.getOne(userID);
+		HrUser oneUser = userDao.getOne(userID);
 		assertNotNull(oneUser);
 		assertTrue(oneUser.getUsername().equalsIgnoreCase("zoalsai"));
 	}
@@ -75,7 +75,7 @@ class IUserDaoTest {
 	@Transactional
 	void testGetByUsername() {
 		String userName = "zoalsai";
-		User oneUser = userDao.findByUsername(userName);
+		HrUser oneUser = userDao.findByUsername(userName);
 		assertNotNull(oneUser);
 		assertTrue(oneUser.getUsername().equalsIgnoreCase(userName));
 	}
@@ -87,11 +87,11 @@ class IUserDaoTest {
         String username = "al3awad";
         String password = "3oook";
         
-        User someUser = new User();
+        HrUser someUser = new HrUser();
 		someUser.setUsername(username);
 		someUser.setPassword(password);
         
-        User returnedUser = userDao.save(someUser);
+        HrUser returnedUser = userDao.save(someUser);
         // Assert the response
         assertNotNull(returnedUser, "The saved User should not be null");
         assertTrue(returnedUser.getUserId() > 1, "The user ID should be more than 1");
@@ -99,7 +99,7 @@ class IUserDaoTest {
         
         userDao.delete(returnedUser);
         
-        Optional<User> deleteddUser = userDao.findById(returnedUser.getUserId());
+        Optional<HrUser> deleteddUser = userDao.findById(returnedUser.getUserId());
 		// shouldn't be there
 		assertFalse(deleteddUser.isPresent(), "User is not supposed to be found");
     }

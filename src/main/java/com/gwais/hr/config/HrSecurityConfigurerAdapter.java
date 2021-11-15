@@ -1,57 +1,39 @@
 package com.gwais.hr.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ITemplateResolver;
+import javax.annotation.Resource;
 
-import com.gwais.hr.dao.IUserDao;
+import org.springframework.context.annotation.*;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
-	
-	@Autowired
-	IUserDao userDao;
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers("/Employee/home")	.access("hasRole('ADMIN') or hasRole('USER')")
-				.antMatchers("/Employee/admin")	.access("hasRole('ADMIN')")
-				.antMatchers("/Employee/{id}")	.access("hasRole('USER')")
-				.anyRequest().authenticated()
-				.and()
-				.formLogin().permitAll()
-				.and()
-				.logout().permitAll()
-				;
-	}
 
-	// added to use the sec:authorize to check roles before displaying the contents
-	@Bean
-	public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver, SpringSecurityDialect sec) {
-		final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(templateResolver);
-		templateEngine.addDialect(sec); // Enable use of "sec" return templateEngine
-		return (templateEngine);
-	}
-
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-				.withUser("zoalsai").password(passwordEncoder().encode("tamaam")).roles("USER")
-				.and()
-				.withUser("modeer").password(passwordEncoder().encode("admin")).roles("ADMIN");
-	}
+	@Resource
+	private UserDetailsService userDetailsService;
 
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public DaoAuthenticationProvider authProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+		authProvider.setUserDetailsService(userDetailsService);
+		authProvider.setPasswordEncoder(passwordEncoder());
+
+		return authProvider;
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authProvider());
 	}
 }

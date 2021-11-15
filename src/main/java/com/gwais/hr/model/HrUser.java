@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "USR")
-public class User {
+public class HrUser {
 	
 	@Id
 	@SequenceGenerator(name = "userSeqGen", sequenceName = "USR_SEQ", allocationSize = 1)
@@ -26,6 +26,14 @@ public class User {
 	@JsonIgnore
 	@Column(name = "PASSWORD")
 	private String password;
+
+	@JsonIgnore
+	@Column(name = "EMAIL")
+	private String email;
+	
+	@JsonIgnore
+	@Column(name = "ROLE")
+	private String role;
 	
 	//List<UserRole> userRoles; // role (e.g. Manager) = group (e.g. Managers)
 	
@@ -54,5 +62,22 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 
 }

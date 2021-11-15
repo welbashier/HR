@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gwais.hr.dao.IEmployeeDao;
+import com.gwais.hr.dao.EmployeeDao;
 import com.gwais.hr.dto.EmployeeDto;
 import com.gwais.hr.model.Employee;
 import com.gwais.hr.service.EmployeeService;
@@ -16,7 +16,7 @@ import com.gwais.hr.service.EmployeeService;
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
-	IEmployeeDao employeeDao;
+	EmployeeDao employeeDao;
 
 	@Override
 	public List<EmployeeDto> getAllEmployees() {
