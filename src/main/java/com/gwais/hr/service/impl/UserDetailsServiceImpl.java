@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserDao userDao;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		HrUser user = userDao.findByUsername(username);
@@ -37,5 +37,27 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		return springUserDetails;
 	}
+
+	/* reserved for creating new users:
+	 * 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+	@Autowired
+	private PasswordEncoder bcryptEncoder;
+	
+	 * public HrUser save(HrUser user) { HrUser newUser = new HrUser();
+	 * newUser.setUsername(user.getUsername());
+	 * newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+	 * newUser.setRole(user.getRole());
+	 * 
+	 * return userDao.save(newUser); }
+	 * 
+	 * put this in the controller to get the new user:
+	 * 
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.save(user));
+	}
+	 */
    
 }

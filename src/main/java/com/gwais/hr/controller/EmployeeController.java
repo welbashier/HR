@@ -1,6 +1,9 @@
 package com.gwais.hr.controller;
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -46,8 +49,16 @@ public class EmployeeController {
 	// accessed by: http://localhost:8011/Employee/7566
 	@GetMapping("/{id}")
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
-	public EmployeeDto employeeAPINo1(@PathVariable Long id) {
+	public EmployeeDto employeeAPINo1(@PathVariable Long id, Principal principal, HttpServletRequest request) {
 		EmployeeDto readEmployee = employeeService.getOneEmployee(id);
+		
+		if (request.isUserInRole("ROLE_USER")) {
+			if (principal.getName().equalsIgnoreCase(readEmployee.getEname())) {
+				return readEmployee;
+			}
+			return new EmployeeDto();
+		};
+		
 		return readEmployee;
 	}
 
