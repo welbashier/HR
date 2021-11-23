@@ -22,6 +22,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		HrUser user = userDao.findByUsername(username);
+		/*
+		 * In the database we have:
+		 * 
+		 * User1: welbashier:willi123 = USER
+		 * User2: manager:go2mange = ADMIN
+		 * 
+		 * you can use the bash shell to run:
+		 * 		$ curl -u manager:go2manage localhost:8011/Employee/
+		 * or
+		 * 		$ curl -u manager:go2manage localhost:8011/Employee/3
+		 */
 		UserDetails springUserDetails = null;
 		
 		if (user == null) {

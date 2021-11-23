@@ -52,14 +52,14 @@ public class EmployeeController {
 	public EmployeeDto employeeAPINo1(@PathVariable Long id, Principal principal, HttpServletRequest request) {
 		EmployeeDto readEmployee = employeeService.getOneEmployee(id);
 		
-		if (request.isUserInRole("ROLE_USER")) {
-			if (principal.getName().equalsIgnoreCase(readEmployee.getEname())) {
-				return readEmployee;
-			}
-			return new EmployeeDto();
-		};
+		if (request.isUserInRole("ROLE_ADMIN")) {
+			return readEmployee;
+		} else if (request.isUserInRole("ROLE_USER") 
+				&& principal.getName().equalsIgnoreCase(readEmployee.getEname())) {
+			return readEmployee;
+		}
 		
-		return readEmployee;
+		return new EmployeeDto();		
 	}
 
 	// accessed by API client (e.g. Postman) to post/add employees
