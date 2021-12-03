@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,17 +51,18 @@ public class EmployeeController {
 	// accessed by: http://localhost:8011/Employee/7566
 	@GetMapping("/{id}")
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
-	public EmployeeDto employeeAPINo1(@PathVariable Long id, Principal principal, HttpServletRequest request) {
+	public ResponseEntity<?> employeeAPINo1(@PathVariable Long id, Principal principal, HttpServletRequest request) {
 		EmployeeDto readEmployee = employeeService.getOneEmployee(id);
 		
-		if (request.isUserInRole("ROLE_ADMIN")) {
-			return readEmployee;
-		} else if (request.isUserInRole("ROLE_USER") 
-				&& principal.getName().equalsIgnoreCase(readEmployee.getEname())) {
-			return readEmployee;
+		if (request.isUserInRole("ROLE_ADMIN")
+				|| (request.isUserInRole("ROLE_USER") 
+						&& principal.getName().equalsIgnoreCase(readEmployee.getEname())
+						)
+				){
+			return new ResponseEntity<>(readEmployee, HttpStatus.OK);
 		}
 		
-		return new EmployeeDto();		
+		return new ResponseEntity<String>("ERROR", HttpStatus.UNAUTHORIZED);
 	}
 
 	// accessed by API client (e.g. Postman) to post/add employees
