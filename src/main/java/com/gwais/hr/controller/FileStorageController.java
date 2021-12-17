@@ -6,12 +6,16 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -39,6 +43,31 @@ public class FileStorageController {
 		// return the message that was sent to us
 		return "SUCCESS " + msg;
 	}
+	
+	@GetMapping("/Download")
+	public Path serveOneFile(@RequestParam("filename") String filename) {
+
+		Path existingFile = fileStorageService.load(filename);
+		
+		// return the file
+		return existingFile;
+	}
+	
+	// in the browser: http://localhost:8011/File/getResource/?filename=hello2.txt
+	@GetMapping("/getResource")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFileAsResource(@RequestParam("filename") String filename) {
+
+		 Resource existingResource = fileStorageService.loadAsResource(filename);
+		 
+		 return ResponseEntity.ok()
+				 .header(
+						 HttpHeaders.CONTENT_DISPOSITION,
+						 "attachment; filename=\"" + existingResource.getFilename() + "\""
+						 )
+				 .body(existingResource);
+	}
+	
 	/*
 	 * Access by:
 	 * $ curl -u welbashier:willi123 localhost:8011/File -v
