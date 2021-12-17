@@ -1,5 +1,6 @@
 package com.gwais.hr.service.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,11 +28,16 @@ public class FileStorageServiceImpl implements FileStorageService {
 	public void store(MultipartFile file) {
 		try {
 			if (file.isEmpty()) {
-				throw new FileStorageException("File is empty " + file.getOriginalFilename());
+				throw new FileStorageException("File is empty");
+			}
+			String targetFileFullPath = this.rootLocation + "/" + file.getOriginalFilename();
+			File tempFile = new File(targetFileFullPath);
+			if (tempFile.exists()) {
+				throw new FileStorageException("File already exists");
 			}
 			Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
 		} catch (IOException e) {
-			throw new FileStorageException("Failed to store file " + file.getOriginalFilename(), e);
+			throw new FileStorageException("Failed to store file", e);
 		}
 	}
 
