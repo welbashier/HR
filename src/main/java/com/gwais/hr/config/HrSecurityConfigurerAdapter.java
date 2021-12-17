@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,4 +37,19 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authProvider());
 	}
+	
+	/*
+	 * Normally, POST mappings are filtered by CSRFfilters. Although it is not
+	 * recommended in the production environment, you can disable CSRF filter simply
+	 * using for learning
+	 */
+	 @Override 
+	 protected void configure(HttpSecurity http) throws Exception {
+		 http.authorizeRequests()
+		 	.anyRequest().authenticated()
+		 	.and().httpBasic()
+		    .and().logout()
+		    .and().csrf().disable();
+	 }
+	 
 }
