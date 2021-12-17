@@ -79,10 +79,11 @@ public class FileStorageController {
 	}
 	
 	/*
-	 * Access by:
-	 * $ curl -u welbashier:willi123 -F "file=@/c/tmp/hello.txt" localhost:8011/File/UploadFile -v
+	 * Access by: (only ADMIN USERs)
+	 * $ curl -u manager:go2manage -F "file=@/c/tmp/hello2.txt" localhost:8011/File/UploadFile -v
 	 */
 	@PostMapping("/UploadFile")
+	@Secured({"ROLE_ADMIN"})
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 		
 		// pass the file to the service to store the file (it returns nothing!)
