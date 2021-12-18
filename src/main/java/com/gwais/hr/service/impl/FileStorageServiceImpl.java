@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gwais.hr.service.FileStorageService;
@@ -23,7 +24,12 @@ public class FileStorageServiceImpl implements FileStorageService {
 	
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
+		try {
+			Files.createDirectories(rootLocation);
+		}
+		catch (IOException e) {
+			throw new FileStorageException("Could not initialize root folder. ", e);
+		}
 	}
 
 	@Override
@@ -61,7 +67,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 	}
 	
 	@Override
-	public Resource loadAsResource(String filename) {
+	public Resource downloadAsResource(String filename) {
 		try {
 			Resource resource = getFileAsResource(filename);
 			
@@ -84,8 +90,20 @@ public class FileStorageServiceImpl implements FileStorageService {
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		FileSystemUtils.deleteRecursively(rootLocation.toFile());
+	}
+
+	@Override
+	public void delete(String filename) {
+		try {
+			String targetFileFullPath = this.rootLocation + "/" + filename;
+			File fileToBeDeleted = new File(targetFileFullPath);
+		    if (fileToBeDeleted.delete()) {
+		    	System.out.println("Deleted the file: " + fileToBeDeleted.getName());
+		    }
+		} catch (Exception e) {
+	    	throw new FileStorageException("Failed to delete the file.");
+		}
 	}
 
 }

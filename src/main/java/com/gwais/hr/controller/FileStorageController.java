@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,8 +32,8 @@ public class FileStorageController {
 	@Autowired
 	FileStorageService fileStorageService;
 	
-	/*
-	 * you can access this by typing this in Git Bash terminal:
+	
+	/* you can access this by typing this in Git Bash terminal:
 	 * $ curl -u welbashier:willi123 -X GET localhost:8011/File/Test/?msg=hello -i -v
 	 * or
 	 * $ curl -u welbashier:willi123 -X GET localhost:8011/File/Test?msg=hello -i -v
@@ -44,6 +45,7 @@ public class FileStorageController {
 		return "SUCCESS " + msg;
 	}
 	
+	
 	@GetMapping("/Download")
 	public Path serveOneFile(@RequestParam("filename") String filename) {
 
@@ -53,12 +55,27 @@ public class FileStorageController {
 		return existingFile;
 	}
 	
+	
+	/* Use:
+	 * $ curl -u manager:go2manage -X DELETE localhost:8011/File/Delete?filename=hello.txt -v
+	 */
+	@DeleteMapping("/Delete")
+	@Secured({"ROLE_ADMIN"})
+	public String deleteFile(@RequestParam("filename") String filename) {
+
+		fileStorageService.delete(filename);
+		
+		// return the file
+		return "SUCCESS. File " + filename + " is deleted.";
+	}
+	
+	
 	// in the browser: http://localhost:8011/File/getResource/?filename=hello2.txt
 	@GetMapping("/getResource")
 	@ResponseBody
 	public ResponseEntity<Resource> serveFileAsResource(@RequestParam("filename") String filename) {
 
-		 Resource existingResource = fileStorageService.loadAsResource(filename);
+		 Resource existingResource = fileStorageService.downloadAsResource(filename);
 		 
 		 return ResponseEntity.ok()
 				 .header(
@@ -68,8 +85,8 @@ public class FileStorageController {
 				 .body(existingResource);
 	}
 	
-	/*
-	 * Access by:
+	
+	/* Access by:
 	 * $ curl -u welbashier:willi123 localhost:8011/File -v
 	 */
 	@GetMapping("")
@@ -90,9 +107,9 @@ public class FileStorageController {
 		}
 		return "uploadForm";
 	}
-
-	/*
-	 * Access by:
+	
+	
+	/* Access by:
 	 * $ curl -u welbashier:willi123 -F "file=@/c/tmp/history.txt" localhost:8011/File -v
 	 */
 	@PostMapping("")
@@ -107,8 +124,8 @@ public class FileStorageController {
 		return "redirect:";
 	}
 	
-	/*
-	 * Access by: (only ADMIN USERs)
+	
+	/* Access by: (only ADMIN USERs)
 	 * $ curl -u manager:go2manage -F "file=@/c/tmp/hello2.txt" localhost:8011/File/UploadFile -v
 	 */
 	@PostMapping("/UploadFile")
