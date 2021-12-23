@@ -37,5 +37,22 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authProvider());
 	}
+	
+	/*
+	 * Normally, POST mappings are filtered by CSRFfilters. Although it is not
+	 * recommended in the production environment, you can disable CSRF filter simply
+	 * using for learning. This method also causes 403 error for some other pages. 
+	 */
+	 @Override 
+	 protected void configure(HttpSecurity httpSecurity) throws Exception {
+		 // minimum required settings for API/non-browser/non-form authentication
+		 // this doesn't make the web site works perfectly
+		 httpSecurity
+			 .csrf().disable()
+	         .authorizeRequests()
+	         .anyRequest().authenticated()
+	         .and().httpBasic() // enables Http Basic Authentication BA (in header fields)
+			 ;
+	 }
 	 
 }
