@@ -20,31 +20,31 @@ public class HrUser {
 	@Column(name = "USR_ID", updatable = false, nullable = false)
 	private Long userId; // emp_seq_generator
 
-	@Column(name = "USERNAME")
+	@Column(name = "USERNAME", nullable = fals)
 	private String username;
 
 	@JsonIgnore
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD", nullable = fals)
 	private String password;
 
 	@JsonIgnore
-	@Column(name = "EMAIL")
+	@Column(name = "EMAIL", nullable = fals)
 	private String email;
 	
 	@JsonIgnore
-	@Column(name = "ROLE")
+	@Column(name = "ROLE", nullable = fals)
 	private String role;
 	
 	@JsonIgnore
-	@Column(name = "ACTIVE")
+	@Column(name = "ACTIVE", nullable = fals)
 	private String active;
 	
 	@JsonIgnore
-	@Column(name = "FIRST_NAME")
+	@Column(name = "FIRST_NAME", nullable = false)
 	private String firstName;
 	
 	@JsonIgnore
-	@Column(name = "LAST_NAME")
+	@Column(name = "LAST_NAME", nullable = false)
 	private String lastName;
 	
 	//List<UserRole> userRoles; // role (e.g. Manager) = group (e.g. Managers)

@@ -1,7 +1,8 @@
 <h1>Employees HR Home page</h1>
 <h2 style="color:green">Welcome to Index Page!</h2>
 
-Hello <span sec:authentication="name"></span>,<br>
+<!-- `Principal` is mapped to `SpringUserDetails` -->
+Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,<br>
 <br>
 <div sec:authorize="hasRole('ROLE_ADMIN')">
     This content is only shown to administrators.<br>

@@ -3,13 +3,13 @@ package com.gwais.hr.service.impl;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gwais.hr.dao.UserDao;
+import com.gwais.hr.dto.SpringUserDetails;
 import com.gwais.hr.model.HrUser;
 
 @Transactional
@@ -23,27 +23,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		HrUser user = userDao.findByUsername(username);
 		/*
-		 * In the database we have:
-		 * 
-		 * User1: welbashier:willi123 = USER
-		 * User2: manager:go2mange = ADMIN
-		 * 
-		 * you can use the bash shell to run:
-		 * 		$ curl -u manager:go2manage localhost:8011/Employee/
-		 * or
-		 * 		$ curl -u manager:go2manage localhost:8011/Employee/3
+		 * use a wrapper class to extend the default fields of UserDetails
 		 */
-		UserDetails springUserDetails = null;
+		SpringUserDetails springUserDetails = null;
 		
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		} else {
-			springUserDetails = User
-					.withUsername(user.getUsername())
-					.password(user.getPassword())
-					.authorities("ROLE_" + user.getRole()) 
-					/* "ROLE_" needed to match with roles in Spring */
-					.build();
+			springUserDetails = new SpringUserDetails(user);
 		}
 		
 		return springUserDetails;
