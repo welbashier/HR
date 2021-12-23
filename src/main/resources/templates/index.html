@@ -1,6 +1,8 @@
 <h1>Employees HR Home page</h1>
 <h2 style="color:green">Welcome to Index Page!</h2>
 
+Hi [[${#request.remoteUser}]],<br>
+<br>
 <div sec:authorize="hasRole('ROLE_ADMIN')">
     This content is only shown to administrators.<br>
     Go <a href="/Employee/admin">administer</a> your employees.
