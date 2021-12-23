@@ -8,8 +8,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,11 +22,15 @@ import com.gwais.hr.service.FileStorageException;
 @Service
 public class FileStorageServiceImpl implements FileStorageService {
 
-	private Path rootLocation = Paths.get("/tmp/files/");
+	@Value("${application.file.storage.home:/tmp/alternative/}")
+	private String fileHomeDirectory;
+	
+	private Path rootLocation;
 	
 	@Override
 	public void init() {
 		try {
+			rootLocation = Paths.get(fileHomeDirectory);
 			Files.createDirectories(rootLocation);
 		}
 		catch (IOException e) {
@@ -35,6 +41,9 @@ public class FileStorageServiceImpl implements FileStorageService {
 	@Override
 	public void store(MultipartFile file) {
 		try {
+			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+			fileHomeDirectory += "/" + currentUserName;
+			this.init();
 			if (file.isEmpty()) {
 				throw new FileStorageException("File is empty");
 			}
@@ -52,6 +61,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 	@Override
 	public Stream<Path> loadAll() {
 		try {
+			this.init();
 			return Files.walk(this.rootLocation, 1)
 				.filter(path -> !path.equals(this.rootLocation))
 				.map(this.rootLocation::relativize);
@@ -63,6 +73,7 @@ public class FileStorageServiceImpl implements FileStorageService {
 
 	@Override
 	public Path load(String filename) {
+		this.init();
 		return rootLocation.resolve(filename);
 	}
 	
@@ -90,12 +101,14 @@ public class FileStorageServiceImpl implements FileStorageService {
 
 	@Override
 	public void deleteAll() {
+		this.init();
 		FileSystemUtils.deleteRecursively(rootLocation.toFile());
 	}
 
 	@Override
 	public void delete(String filename) {
 		try {
+			this.init();
 			String targetFileFullPath = this.rootLocation + "/" + filename;
 			File fileToBeDeleted = new File(targetFileFullPath);
 		    if (fileToBeDeleted.delete()) {
