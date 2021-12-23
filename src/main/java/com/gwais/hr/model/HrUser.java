@@ -35,6 +35,18 @@ public class HrUser {
 	@Column(name = "ROLE")
 	private String role;
 	
+	@JsonIgnore
+	@Column(name = "ACTIVE")
+	private String active;
+	
+	@JsonIgnore
+	@Column(name = "FIRST_NAME")
+	private String firstName;
+	
+	@JsonIgnore
+	@Column(name = "LAST_NAME")
+	private String lastName;
+	
 	//List<UserRole> userRoles; // role (e.g. Manager) = group (e.g. Managers)
 	
 	//List<UserRights> userRights;
@@ -79,5 +91,27 @@ public class HrUser {
 		this.role = role;
 	}
 
+	public String getActive() {
+		return active;
+	}
 
+	public void setActive(String active) {
+		this.active = active;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 }
