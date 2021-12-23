@@ -45,14 +45,15 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	 */
 	 @Override 
 	 protected void configure(HttpSecurity httpSecurity) throws Exception {
-		 // minimum required settings for API/non-browser/non-form authentication
-		 // this doesn't make the web site works perfectly
 		 httpSecurity
-			 .csrf().disable()
-	         .authorizeRequests()
-	         .anyRequest().authenticated()
-	         .and().httpBasic() // enables Http Basic Authentication BA (in header fields)
-			 ;
+			 .csrf().disable() // disable CSRF (cross-site request forgery code)
+	         .formLogin() // use form-based login instead of Basic Authentication
+	         .and()
+		         .authorizeRequests()
+		         .antMatchers("/admin**").access("hasRole('ADMIN')")
+		         .anyRequest().authenticated() // Any other resources needs to be authenticated
+	         .and()
+	         	.anonymous().disable(); // disable anonymous authentication/users
 	 }
 	 
 }
