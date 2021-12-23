@@ -9,5 +9,5 @@ import com.gwais.hr.model.HrUser;
 public interface UserDao extends JpaRepository<HrUser, Long> {
 
 	// methods are implicit
-	HrUser findByUsername(Object userName);
+	HrUser findByUsername(String userName);
 }
