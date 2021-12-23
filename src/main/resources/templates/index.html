@@ -14,5 +14,8 @@
 <br>
 <img src="https://media2.giphy.com/media/3pZipqyo1sqHDfJGtz/giphy.gif"/>
 <br>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+	<br><a href="/File/uploadForm">Upload a File</a>.
+</div>
 <br>
-<a href="http://localhost:8011/logout">logout</a>
+<br><a href="/logout">logout</a>

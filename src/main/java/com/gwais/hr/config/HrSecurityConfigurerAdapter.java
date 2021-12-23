@@ -46,7 +46,6 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	 @Override 
 	 protected void configure(HttpSecurity httpSecurity) throws Exception {
 		 httpSecurity
-			 .csrf().disable() // disable CSRF (cross-site request forgery code)
 	         .formLogin() // use form-based login instead of Basic Authentication
 	         .and()
 		         .authorizeRequests()

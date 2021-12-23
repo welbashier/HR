@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -137,5 +138,17 @@ public class FileStorageController {
 		
 		// if no exception caught return a success message
 		return "File successfully uploaded";
+	}
+
+
+	/*
+	 * Static pages
+	 */
+	@GetMapping(value = { "/uploadForm"})
+	@Secured({"ROLE_ADMIN"})
+	public ModelAndView filePage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("uploadForm");
+		return model;
 	}
 }
