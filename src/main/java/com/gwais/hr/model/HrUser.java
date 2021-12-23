@@ -20,23 +20,23 @@ public class HrUser {
 	@Column(name = "USR_ID", updatable = false, nullable = false)
 	private Long userId; // emp_seq_generator
 
-	@Column(name = "USERNAME", nullable = fals)
+	@Column(name = "USERNAME", nullable = false)
 	private String username;
 
 	@JsonIgnore
-	@Column(name = "PASSWORD", nullable = fals)
+	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
 	@JsonIgnore
-	@Column(name = "EMAIL", nullable = fals)
+	@Column(name = "EMAIL", nullable = false)
 	private String email;
 	
 	@JsonIgnore
-	@Column(name = "ROLE", nullable = fals)
+	@Column(name = "ROLE", nullable = false)
 	private String role;
 	
 	@JsonIgnore
-	@Column(name = "ACTIVE", nullable = fals)
+	@Column(name = "ACTIVE", nullable = false)
 	private String active;
 	
 	@JsonIgnore
