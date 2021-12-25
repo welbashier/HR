@@ -16,12 +16,11 @@
 		<br>
 		<h1>Menu</h1>
 		<i>Here goes the list of actions..</i>
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
+		<br><div sec:authorize="hasRole('ROLE_ADMIN')">
 			<br><a href="/Employee/admin">Administer Employees</a>
 		</div>
-		<div sec:authorize="hasRole('ROLE_ADMIN')">
-			<br><a href="/File/uploadForm">Upload a Photo for your Profile</a>.
-		</div>
+		<br><a href="/File/uploadForm">Upload a Photo for your Profile</a>.
+		<br>
 		<br><a href="/logout">Logout</a>
 	</body>
 </html>

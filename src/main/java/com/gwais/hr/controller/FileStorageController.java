@@ -130,7 +130,6 @@ public class FileStorageController {
 	 * $ curl -u manager:go2manage -F "file=@/c/tmp/hello2.txt" localhost:8011/File/UploadFile -v
 	 */
 	@PostMapping("/UploadFile")
-	@Secured({"ROLE_ADMIN"})
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 		
 		// pass the file to the service to store the file (it returns nothing!)
@@ -145,7 +144,6 @@ public class FileStorageController {
 	 * Static pages
 	 */
 	@GetMapping(value = { "/uploadForm"})
-	@Secured({"ROLE_ADMIN"})
 	public ModelAndView filePage() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("uploadForm");
