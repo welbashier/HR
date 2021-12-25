@@ -9,19 +9,18 @@
 		<!-- `Principal` is mapped to `SpringUserDetails` -->
 		<br>Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,
 		<br>
+		<br>Today is: <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span>
 		<br> Currently, this page can be viewed by any authenticated user.
 		<br>
 		<br><img th:src="@{/images/Employees-640x302.png}">
 		<br>
 		<h1>Menu</h1>
-		<br><i>Here goes the list of actions..</i>
-		<br>
-		<br><div sec:authorize="hasRole('ROLE_ADMIN')">
-			<a href="/Employee/admin">Administer Employees</a>
+		<i>Here goes the list of actions..</i>
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<br><a href="/Employee/admin">Administer Employees</a>
 		</div>
-		<br>
-		<br><div sec:authorize="hasRole('ROLE_ADMIN')">
-			<a href="/File/uploadForm">Upload a Photo for your Profile</a>.
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<br><a href="/File/uploadForm">Upload a Photo for your Profile</a>.
 		</div>
 		<br><a href="/logout">Logout</a>
 	</body>
