@@ -2,44 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Employees-Home</title>
-		<link rel="stylesheet" media="all" href="/css/top-menu.css" />
+		<link rel="stylesheet" media="all" href="/css/left-side-menu.css" />
 	</head>
 	<body>
-		<nav>
-			<ul class="nav navbar-nav">
+		<ul class="navigation">
 				<span sec:authorize="hasRole('ROLE_ADMIN')">
-					<li><a href="/Employee/admin">Administration</a></li>
+					<li class="nav-item"><a href="/Employee/admin">Administration</a></li>
 				</span>
-				<li>
+				<li class="nav-item">
 					<a href="/Employee/profile">Profile</a>
 				</li>
-				<li>
+				<li class="nav-item">
 					<a href="/Employee/timeCard">Time Card</a>
 				</li>
-				<li>
+				<li class="nav-item">
 					<a href="/Employee/benefits">Benefits</a>
 				</li>
-				<li>
+				<li class="nav-item">
 					<a href="/Employee/training">Training</a>
 				</li>
-				<li>
+				<li class="nav-item">
 					<a href="/Employee/payments">Payments</a>
 				</li>
-				<li>
+				<li class="nav-item">
 					<a href="/File/uploadForm">Upload</a>
 				</li>
-				<li>
+				<li class="nav-item">
 					<a href="/logout">Logout</a>
 				</li>
-			</ul>
-		</nav>
-		<!-- `Principal` is mapped to `SpringUserDetails` -->
-		<br>Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,
-		<br>
-		<br>Today is: <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span>
-		<br> Currently, this page can be viewed by any authenticated user.
-		<br>
-		<br><img th:src="@{/images/Employees-640x302.png}">
-		<br>
+		</ul>
+		
+		<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+		<label for="nav-trigger"></label>
+		
+		<div class="site-wrap">
+			<h1>Human Resource </h1>
+			<!-- `Principal` is mapped to `SpringUserDetails` -->
+			<p>Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,</p>
+			<p></p>
+			<p>Today is: <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span></p>
+			<p> Currently, this page can be viewed by any authenticated user.</p>
+			<p></p>
+			<p><img th:src="@{/images/Employees-640x302.png}"></p>
+			<p></p>
+		</div>
 	</body>
 </html>
+
+
+
+
+	
