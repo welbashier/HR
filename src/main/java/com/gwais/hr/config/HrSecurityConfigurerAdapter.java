@@ -46,13 +46,14 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	 @Override 
 	 protected void configure(HttpSecurity httpSecurity) throws Exception {
 		 httpSecurity
-	         .formLogin() // use form-based login instead of Basic Authentication
-	         .and()
-		         .authorizeRequests()
-		         .antMatchers("/admin**").access("hasRole('ADMIN')")
-		         .anyRequest().authenticated() // Any other resources needs to be authenticated
-	         .and()
-	         	.anonymous().disable(); // disable anonymous authentication/users
+			.authorizeRequests()
+			.antMatchers("/", "/index").permitAll()
+			.anyRequest().authenticated()
+			.and()
+		.formLogin()
+			.and()
+			.logout().permitAll()
+		 .logoutSuccessUrl("/index");
 	 }
 	 
 }

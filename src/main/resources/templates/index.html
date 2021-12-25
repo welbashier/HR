@@ -1,24 +1,17 @@
-<h1>Employees HR Home page</h1>
-<h2 style="color:green">Welcome to Index Page!</h2>
-
-<!-- `Principal` is mapped to `SpringUserDetails` -->
-Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,<br>
-<br>
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.<br>
-    Go <a href="/Employee/admin">administer</a> your employees.
-</div>
-<br>
-<div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.<br>
-    Go to see your <a href="/Employee/home">home page</a>.
-</div>
-<br>
-<br>
-<img src="https://media2.giphy.com/media/3pZipqyo1sqHDfJGtz/giphy.gif"/>
-<br>
-<div sec:authorize="hasRole('ROLE_ADMIN')">
-	<br><a href="/File/uploadForm">Upload a File</a>.
-</div>
-<br>
-<br><a href="/logout">logout</a>
+<html>
+	<head>
+		<title>Human Resource Management</title>
+	</head>
+	<body>
+		<h1>Human Resource Management</h1>
+		<h2 style="color: green">Welcome to Human Resource Hope Page!</h2>
+		<br>
+		<div style="width:500px; font-size:2vw">We are pleased to offer you a Web Portal to manage your time
+		card, request vacation or sick time, view your payments and get benefits details.
+		</div>
+		<br> To do that, go to <a href="/Employee/home">Your Home Page</a>.
+		<br>
+		<br><img src="https://media2.giphy.com/media/3pZipqyo1sqHDfJGtz/giphy.gif" />
+		<br>
+	</body>
+</html>
