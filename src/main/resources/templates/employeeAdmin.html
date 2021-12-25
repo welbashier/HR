@@ -2,25 +2,37 @@
 <html>
 	<head>
 		<title>Employees-Admin</title>
+		<link rel="stylesheet" media="all" href="/css/top-menu.css" />
 	</head>
 	<body>
+		<nav>
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="/Employee/home">Home</a>
+				</li>
+				<li>
+					<a href="/Employee/admin/searchEmployee">Search Employees</a>
+				</li>
+				<li>
+					<a href="/Employee/admin/addEmployee">Add Employee</a>
+				</li>
+				<li>
+					<a href="/Employee/admin/modifyEmployee">Update Employee</a>
+				</li>
+				<li>
+					<a href="/Employee/admin/manageBenefits">Benefits</a>
+				</li>
+				<li>
+					<a href="/Employee/admin/manageAnnouncements">Announcements</a>
+				</li>
+				<li>
+					<a href="/logout">Logout</a>
+				</li>
+			</ul>
+		</nav>
 		<h2 style="color:green">Managing Employees. Only Admins should see this. </h2>
 		
 		<br><img th:src="@{/images/Employee_admin.jpg}" alt="image" width="300" height="200">
 		<br>
-		<h1>Menu</h1>
-		<a href="/Employee/home">Home</a>
-		<br>
-		<br><a href="/Employee/admin/searchEmployee">Search Employees</a>
-		<br>
-		<br><a href="/Employee/admin/addEmployee">Add New Employee</a>
-		<br>
-		<br><a href="/Employee/admin/modifyEmployee">Update Employee</a> (modify, lock account, change salary/benefits etc.)
-		<br>
-		<br><a href="/Employee/admin/manageBenefits">Manage Benefits</a> (add new benefits, assign benefits to employees etc.)
-		<br>
-		<br><a href="/Employee/admin/manageAnnouncements">Announcements</a>
-		<br>
-		<br><a href="/logout">Logout</a>
 	</body>
 </html>
