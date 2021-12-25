@@ -15,10 +15,20 @@
 		<br><img th:src="@{/images/Employees-640x302.png}">
 		<br>
 		<h1>Menu</h1>
-		<i>Here goes the list of actions..</i>
+		<a href="/Employee/home">Home</a>
 		<br><div sec:authorize="hasRole('ROLE_ADMIN')">
 			<br><a href="/Employee/admin">Administer Employees</a>
 		</div>
+		<br><a href="/Employee/profile">Profile</a>
+		<br>
+		<br><a href="/Employee/timeCard">Time Card</a>
+		<br>
+		<br><a href="/Employee/benefits">Benefits</a>
+		<br>
+		<br><a href="/Employee/training">Training Center</a>
+		<br>
+		<br><a href="/Employee/payments">Payments</a>
+		<br>
 		<br><a href="/File/uploadForm">Upload a Photo for your Profile</a>.
 		<br>
 		<br><a href="/logout">Logout</a>

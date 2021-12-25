@@ -109,5 +109,39 @@ public class EmployeeController {
 		model.setViewName("employeeAdmin");
 		return model;
 	}
-
+	
+	@GetMapping(value = { "/profile"})
+	public ModelAndView profile() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeProfile");
+		return model;
+	}
+	
+	@GetMapping(value = { "/timeCard"})
+	public ModelAndView timeCard() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeTimeCard");
+		return model;
+	}
+	
+	@GetMapping(value = { "/benefits"})
+	public ModelAndView benefits() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeBenefits");
+		return model;
+	}
+	
+	@GetMapping(value = { "/training"})
+	public ModelAndView training() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeTraining");
+		return model;
+	}
+	
+	@GetMapping(value = { "/payments"})
+	public ModelAndView payments() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeePayments");
+		return model;
+	}
 }
