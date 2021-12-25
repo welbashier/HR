@@ -102,14 +102,6 @@ public class EmployeeController {
 		return model;
 	}
 	
-	@GetMapping(value = { "/admin"})
-	@Secured("ROLE_ADMIN")
-	public ModelAndView adminPage() {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("employeeAdmin");
-		return model;
-	}
-	
 	@GetMapping(value = { "/profile"})
 	public ModelAndView profile() {
 		ModelAndView model = new ModelAndView();
@@ -142,6 +134,58 @@ public class EmployeeController {
 	public ModelAndView payments() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("employeePayments");
+		return model;
+	}
+	
+	/*
+	 * Administration pages
+	 */
+	
+	@GetMapping(value = { "/admin"})
+	@Secured("ROLE_ADMIN")
+	public ModelAndView adminPage() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("employeeAdmin");
+		return model;
+	}
+	
+	@GetMapping(value = { "/admin/searchEmployee"})
+	@Secured("ROLE_ADMIN")
+	public ModelAndView adminEmployeeSearch() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/administration/searchEmployee");
+		return model;
+	}
+	
+	@GetMapping(value = { "/admin/addEmployee"})
+	@Secured("ROLE_ADMIN")
+	public ModelAndView adminEmployeeAdd() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/administration/addEmployee");
+		return model;
+	}
+	
+	@GetMapping(value = { "/admin/modifyEmployee"})
+	@Secured("ROLE_ADMIN")
+	public ModelAndView adminEmployeeModify() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/administration/modifyEmployee");
+		return model;
+	}
+	
+	@GetMapping(value = { "/admin/manageBenefits"})
+	@Secured("ROLE_ADMIN")
+	public ModelAndView adminEmployeeBenefits() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/administration/manageBenefits");
+		return model;
+	}
+	
+	@GetMapping(value = { "/admin/manageAnnouncements"})
+	@Secured("ROLE_ADMIN")
+	public ModelAndView adminAnnouncements() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName("/administration/manageAnnouncements");
 		return model;
 	}
 }
