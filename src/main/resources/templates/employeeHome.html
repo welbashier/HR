@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Employees-Home</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link rel="stylesheet" href="/css/bootstrap_3_4_1.css">
 	</head>
 	<body>
@@ -38,9 +40,8 @@
 		</nav>
 		
 		<div class="container">
-			<h1>Human Resource </h1>
 			<!-- `Principal` is mapped to `SpringUserDetails` -->
-			<p>Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,</p>
+			<h1>Hi [[${#request.userPrincipal.principal.fullName}]],</h1>
 			<p></p>
 			<p>Today is: <span th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}"></span></p>
 			<p> Currently, this page can be viewed by any authenticated user.</p>
