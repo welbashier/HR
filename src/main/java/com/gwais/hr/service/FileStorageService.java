@@ -10,7 +10,7 @@ public interface FileStorageService {
 
 	void init();
 
-	void store(MultipartFile file);
+	void store(MultipartFile file) throws Exception;
 
 	Stream<Path> loadAll();
 

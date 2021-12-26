@@ -39,20 +39,23 @@ public class FileStorageServiceImpl implements FileStorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file) {
+	public void store(MultipartFile file) throws Exception {
 		try {
-			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
-			fileHomeDirectory += "/" + currentUserName;
-			this.init();
 			if (file.isEmpty()) {
 				throw new FileStorageException("File is empty");
 			}
-			String targetFileFullPath = this.rootLocation + "/" + file.getOriginalFilename();
-			File tempFile = new File(targetFileFullPath);
+			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
+			String targetFileDirectory = fileHomeDirectory + "/" + currentUserName;
+			Path targetPath = Paths.get(targetFileDirectory);
+			
+			Files.createDirectories(targetPath);
+			
+			String targetFileFullName = targetPath + "/" + file.getOriginalFilename();
+			File tempFile = new File(targetFileFullName);
 			if (tempFile.exists()) {
 				throw new FileStorageException("File already exists");
 			}
-			Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+			Files.copy(file.getInputStream(), targetPath.resolve(file.getOriginalFilename()));
 		} catch (IOException e) {
 			throw new FileStorageException("Failed to store file", e);
 		}

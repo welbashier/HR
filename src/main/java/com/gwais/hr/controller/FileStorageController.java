@@ -34,11 +34,6 @@ public class FileStorageController {
 	FileStorageService fileStorageService;
 	
 	
-	/* you can access this by typing this in Git Bash terminal:
-	 * $ curl -u welbashier:willi123 -X GET localhost:8011/File/Test/?msg=hello -i -v
-	 * or
-	 * $ curl -u welbashier:willi123 -X GET localhost:8011/File/Test?msg=hello -i -v
-	 */
 	@GetMapping("/Test")
 	public String testGetMapping(@RequestParam("msg") String msg) {
 		
@@ -57,9 +52,6 @@ public class FileStorageController {
 	}
 	
 	
-	/* Use:
-	 * $ curl -u manager:go2manage -X DELETE localhost:8011/File/Delete?filename=hello.txt -v
-	 */
 	@DeleteMapping("/Delete")
 	@Secured({"ROLE_ADMIN"})
 	public String deleteFile(@RequestParam("filename") String filename) {
@@ -87,9 +79,6 @@ public class FileStorageController {
 	}
 	
 	
-	/* Access by:
-	 * $ curl -u welbashier:willi123 localhost:8011/File -v
-	 */
 	@GetMapping("")
 	public String listUploadedFiles(Model model) throws IOException {
 		
@@ -110,14 +99,15 @@ public class FileStorageController {
 	}
 	
 	
-	/* Access by:
-	 * $ curl -u welbashier:willi123 -F "file=@/c/tmp/history.txt" localhost:8011/File -v
-	 */
 	@PostMapping("")
 	public String handleFileUploadAndRedirect(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
 
-		fileStorageService.store(file);
+		try {
+			fileStorageService.store(file);
+		} catch (Exception e) {
+			return e.toString();
+		}
 		
 		redirectAttributes.addFlashAttribute("message",
 				"You successfully uploaded " + file.getOriginalFilename() + "!");
@@ -126,15 +116,15 @@ public class FileStorageController {
 	}
 	
 	
-	/* Access by: (only ADMIN USERs)
-	 * $ curl -u manager:go2manage -F "file=@/c/tmp/hello2.txt" localhost:8011/File/UploadFile -v
-	 */
 	@PostMapping("/UploadFile")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 		
 		// pass the file to the service to store the file (it returns nothing!)
-		fileStorageService.store(file);
-		
+		try {
+			fileStorageService.store(file);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 		// if no exception caught return a success message
 		return "File successfully uploaded";
 	}
@@ -143,6 +133,7 @@ public class FileStorageController {
 	/*
 	 * Static pages
 	 */
+	
 	@GetMapping(value = { "/uploadForm"})
 	public ModelAndView filePage() {
 		ModelAndView model = new ModelAndView();

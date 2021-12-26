@@ -1,30 +1,71 @@
-<html xmlns:th="https://www.thymeleaf.org">
-<body>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<title>Employees-Admin</title>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script>			
+			$(document).ready(function() {
+			  $('input[type="file"]').on("change", function() {
+			    let filenames = [];
+			    let files = this.files;
+			    for (let i in files) {
+			        if (files.hasOwnProperty(i)) {
+			          filenames.push(files[i].name);
+			        }
+			    }
+			      
+			    $(this)
+			      .next(".custom-file-label")
+			      .html(filenames.join(","));
+			  });
+			});
+		</script>
+	</head>
 
-	<div th:if="${message}">
-		<h2 th:text="${message}"/>
-	</div>
+	<body>
 
-	<div>
-		<form method="POST" enctype="multipart/form-data" action="/File/UploadFile">
-			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-			</table>
+	<div class="container">
+		<div th:if="${message}">
+			<h2 th:text="${message}"/>
+		</div>
+	
+		<div class="container mt-5">
+		  <div class="border p-4">
+		  <form method="post" enctype="multipart/form-data" action="/File/UploadFile">
+		    <div class="form-group">
+		      <label><strong>Upload File</strong></label>
+		      <div class="custom-file">
+		        <input type="file" name="file" class="custom-file-input form-control" id="customFile">
+		        <label class="custom-file-label" for="customFile">Choose file</label>
+		      </div>
+		    </div>
+	    
+		    <!---- this field is needed for holding and passing back CSRF code ----->
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-		</form>
-	</div>
-
-	<div>
-		<ul>
-			<li th:each="file : ${files}">
-				<a th:href="${file}" th:text="${file}" />
-			</li>
-		</ul>
+		
+		    <div class="form-group">
+		      <button type="submit" name="upload" value="upload" id="upload" class="btn btn-block btn-dark">
+		      <i class="fa fa-fw fa-upload"></i> Upload</button>
+		    </div>
+		  </form>
+		</div>
+		</div>
+	
+		<div>
+			<ul>
+				<li th:each="file : ${files}">
+					<a th:href="${file}" th:text="${file}" />
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<br><a href="/Employee/home">Home</a>
 	<br>
 	<br><a href="/logout">Logout</a>
-</body>
+	</body>
 </html>
