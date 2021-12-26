@@ -10,7 +10,7 @@ public interface FileStorageService {
 
 	void init();
 
-	void store(MultipartFile file) throws Exception;
+	void store(MultipartFile file, Boolean isProfile) throws Exception;
 
 	Stream<Path> loadAll();
 
@@ -21,4 +21,5 @@ public interface FileStorageService {
 	void deleteAll();
 
 	void delete(String filename);
+
 }

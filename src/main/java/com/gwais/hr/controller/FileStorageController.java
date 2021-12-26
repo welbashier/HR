@@ -104,7 +104,7 @@ public class FileStorageController {
 			RedirectAttributes redirectAttributes) {
 
 		try {
-			fileStorageService.store(file);
+			fileStorageService.store(file, false);
 		} catch (Exception e) {
 			return e.toString();
 		}
@@ -121,15 +121,29 @@ public class FileStorageController {
 		
 		// pass the file to the service to store the file (it returns nothing!)
 		try {
-			fileStorageService.store(file);
+			fileStorageService.store(file, false);
 		} catch (Exception e) {
 			return e.getMessage();
 		}
 		// if no exception caught return a success message
 		return "File successfully uploaded";
 	}
-
-
+	
+	
+	@PostMapping("/UploadProfilePhoto")
+	public String handleProfilePhotoUpload(@RequestParam("file") MultipartFile file) {
+		
+		// pass the file to the service to store the file (it returns nothing!)
+		try {
+			fileStorageService.store(file, true);
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+		// if no exception caught return a success message
+		return "File successfully uploaded";
+	}
+	
+	
 	/*
 	 * Static pages
 	 */

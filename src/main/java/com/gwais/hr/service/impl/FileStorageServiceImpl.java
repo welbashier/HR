@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -39,23 +41,34 @@ public class FileStorageServiceImpl implements FileStorageService {
 	}
 
 	@Override
-	public void store(MultipartFile file) throws Exception {
+	public void store(MultipartFile file, Boolean isProfile) throws Exception {
 		try {
 			if (file.isEmpty()) {
 				throw new FileStorageException("File is empty");
 			}
+			String sourceFileName = file.getOriginalFilename();
 			String currentUserName = SecurityContextHolder.getContext().getAuthentication().getName();
 			String targetFileDirectory = fileHomeDirectory + "/" + currentUserName;
+			if (isProfile) {
+				targetFileDirectory +=  "/profile_photo";
+			}
 			Path targetPath = Paths.get(targetFileDirectory);
 			
 			Files.createDirectories(targetPath);
 			
-			String targetFileFullName = targetPath + "/" + file.getOriginalFilename();
-			File tempFile = new File(targetFileFullName);
-			if (tempFile.exists()) {
-				throw new FileStorageException("File already exists");
+			String targetFileFullName;
+			if (isProfile) {
+				// change the name to profile_photo.ext
+				String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName);
+				targetFileFullName = targetPath + "/" + "profile_photo." + sourceFileNameExtension;
+				// delete old photo
+				FileUtils.cleanDirectory(new File(targetFileDirectory));
+			} else {
+				// keep the file name as is
+				targetFileFullName = targetPath + "/" + sourceFileName;
 			}
-			Files.copy(file.getInputStream(), targetPath.resolve(file.getOriginalFilename()));
+			
+			Files.copy(file.getInputStream(), targetPath.resolve(targetFileFullName));
 		} catch (IOException e) {
 			throw new FileStorageException("Failed to store file", e);
 		}
