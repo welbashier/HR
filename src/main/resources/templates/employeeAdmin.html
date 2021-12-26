@@ -2,14 +2,14 @@
 <html>
 	<head>
 		<title>Employees-Admin</title>
-		<link rel="stylesheet" media="all" href="/css/top-menu.css" />
+		<link rel="stylesheet" href="/css/bootstrap_3_4_1.css">
 	</head>
 	<body>
-		<nav>
+		<nav class="navbar navbar-inverse">
 			<ul class="nav navbar-nav">
-				<li>
-					<a href="/Employee/home">Home</a>
-				</li>
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/Employee/home">Human Resource</a>
+			    </div>
 				<li>
 					<a href="/Employee/admin/searchEmployee">Search Employees</a>
 				</li>
@@ -30,9 +30,11 @@
 				</li>
 			</ul>
 		</nav>
-		<h2 style="color:green">Managing Employees. Only Admins should see this. </h2>
+		<div class="container">
+		<h3 style="color:green">Managing Employees. Only Admins should see this. </h3>
 		
 		<br><img th:src="@{/images/Employee_admin.jpg}" alt="image" width="300" height="200">
 		<br>
+		</div>
 	</body>
 </html>

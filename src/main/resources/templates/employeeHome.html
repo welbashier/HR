@@ -2,40 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>Employees-Home</title>
-		<link rel="stylesheet" media="all" href="/css/left-side-menu.css" />
+		<link rel="stylesheet" href="/css/bootstrap_3_4_1.css">
 	</head>
 	<body>
-		<ul class="navigation">
-				<span sec:authorize="hasRole('ROLE_ADMIN')">
-					<li class="nav-item"><a href="/Employee/admin">Administration</a></li>
-				</span>
-				<li class="nav-item">
+		<nav class="navbar navbar-inverse">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Human Resource</a>
+		    </div>
+			<ul class="nav navbar-nav">
+				<li sec:authorize="hasRole('ROLE_ADMIN')">
+					<a href="/Employee/admin">Administration</a>
+				</li>
+				<li>
 					<a href="/Employee/profile">Profile</a>
 				</li>
-				<li class="nav-item">
+				<li>
 					<a href="/Employee/timeCard">Time Card</a>
 				</li>
-				<li class="nav-item">
+				<li>
 					<a href="/Employee/benefits">Benefits</a>
 				</li>
-				<li class="nav-item">
+				<li>
 					<a href="/Employee/training">Training</a>
 				</li>
-				<li class="nav-item">
+				<li>
 					<a href="/Employee/payments">Payments</a>
 				</li>
-				<li class="nav-item">
+				<li>
 					<a href="/File/uploadForm">Upload</a>
 				</li>
-				<li class="nav-item">
+				<li>
 					<a href="/logout">Logout</a>
 				</li>
-		</ul>
+			</ul>
+		</nav>
 		
-		<input type="checkbox" id="nav-trigger" class="nav-trigger" />
-		<label for="nav-trigger"></label>
-		
-		<div class="site-wrap">
+		<div class="container">
 			<h1>Human Resource </h1>
 			<!-- `Principal` is mapped to `SpringUserDetails` -->
 			<p>Hi <b>[[${#request.userPrincipal.principal.fullName}]]</b>,</p>
