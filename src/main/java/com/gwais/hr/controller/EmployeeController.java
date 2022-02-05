@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class EmployeeController {
 	// getting all employees by: http://localhost:8011/Employee
 	@GetMapping("")
 	@Secured("ROLE_ADMIN") /* limited to users with ADMIN role.  must be added */
-	public List<EmployeeDto> employeeAPINo10() {
+	public List<EmployeeDto> listAllEmployees() {
 		List<EmployeeDto> employees = employeeService.getAllEmployees();
 		return employees;
 	}
@@ -51,7 +52,7 @@ public class EmployeeController {
 	// accessed by: http://localhost:8011/Employee/7566
 	@GetMapping("/{id}")
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
-	public ResponseEntity<?> employeeAPINo1(@PathVariable Long id, Principal principal, HttpServletRequest request) {
+	public ResponseEntity<?> getEmployee(@PathVariable Long id, Principal principal, HttpServletRequest request) {
 		EmployeeDto readEmployee = employeeService.getOneEmployee(id);
 		
 		if (request.isUserInRole("ROLE_ADMIN")
@@ -68,15 +69,23 @@ public class EmployeeController {
 	// accessed by API client (e.g. Postman) to post/add employees
 	@PostMapping("/")
 	@Secured("ROLE_ADMIN") /* if global method security is enabled, only admins can execute */
-	public EmployeeDto employeeAPINo12(@RequestBody EmployeeDto changedEmployee) {
+	public EmployeeDto postEmployee(@RequestBody EmployeeDto changedEmployee) {
 		EmployeeDto addedEmployee = employeeService.addEmployee(changedEmployee);
+		return addedEmployee;
+	}
+
+	@PostMapping("/Register")
+	@Secured("ROLE_ADMIN")
+	public EmployeeDto registerEmployee(@RequestBody EmployeeDto newEmployee) {
+		EmployeeDto changedEmployee = new EmployeeDto();
+		EmployeeDto addedEmployee = employeeService.addEmployee(changedEmployee );
 		return addedEmployee;
 	}
 
 	// accessed by API client (e.g. Postman) to put/update employees
 	@PutMapping("/{id}") // may not be needed
 	@Secured({"ROLE_ADMIN","ROLE_USER"})
-	public EmployeeDto employeeAPINo3(
+	public EmployeeDto putEmployee(
 			@RequestBody EmployeeDto changedEmployee,
 			@PathVariable(name = "id", required = true) Long id) {
 		return employeeService.modifyEmployee(changedEmployee, id);
@@ -85,7 +94,7 @@ public class EmployeeController {
 	// accessed by API client (e.g. Postman) to delete employees
 	@DeleteMapping("/{id}")
 	@Secured("ROLE_ADMIN")
-	public String employeeAPINo4(@PathVariable Long id) {
+	public String deleteEmployee(@PathVariable Long id) {
 		return employeeService.removeEmployee(id);
 	}
 	

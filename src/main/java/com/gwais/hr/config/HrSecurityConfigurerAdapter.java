@@ -47,7 +47,7 @@ public class HrSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 	 protected void configure(HttpSecurity httpSecurity) throws Exception {
 		 httpSecurity
 			.authorizeRequests()
-			.antMatchers("/", "/index").permitAll()
+			.antMatchers("/", "/index", "/Open/**").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()

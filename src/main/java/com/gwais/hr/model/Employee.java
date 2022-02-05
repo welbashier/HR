@@ -15,7 +15,7 @@ import javax.persistence.Table;
 public class Employee {
 
 	@Id
-	@SequenceGenerator(name = "empSeqGenerator", sequenceName = "emp_seq", allocationSize = 1)
+	@SequenceGenerator(name = "empSeqGenerator", sequenceName = "HR_EMPLOYEE_SEQ", allocationSize = 1)
 	@GeneratedValue(generator = "empSeqGenerator", strategy = GenerationType.SEQUENCE)
 	@Column(name = "empno", updatable = false, nullable = false)
 	private Long empno; // emp_seq_generator
